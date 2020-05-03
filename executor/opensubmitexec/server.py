@@ -139,6 +139,13 @@ def fetch_job(config):
             # but this is a Bernhard-incompatible API change
             from urllib.parse import urlparse
             relative_path = urlparse(headers["PostRunValidation"]).path
+            # I'm Sven, not Berhard but I can't wrap my head around what Peter wrote
+            # Issue for me being https://host/path is suffixed  with /path/download/blah
+            # Removing the latter path
+            try:
+                relative_path = relative_path[relative_path.index("/download"):]
+            except ValueError:
+                pass
             job.validator_url = config.get("Server", "url") + relative_path
         job.working_dir = create_working_dir(config, job.sub_id)
 

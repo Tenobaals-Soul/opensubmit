@@ -170,7 +170,7 @@ def prepare_working_directory(job, submission_path, validator_path):
         job.student_files.remove(submission_fname)
 
     # Fail automatically on empty student submissions
-    if len(job.student_files) is 0:
+    if len(job.student_files) == 0:
         info_student = "Your compressed upload is empty - no files in there."
         info_tutor = "Submission archive file has no content."
         logger.error(info_tutor)
@@ -183,7 +183,10 @@ def prepare_working_directory(job, submission_path, validator_path):
         # Set new working directory
         job.working_dir = job.working_dir + single_dir + os.sep
         # Move validator package there
-        shutil.move(validator_path, job.working_dir)
+        try:
+            shutil.move(validator_path, job.working_dir)
+        except shutil.Error:
+            logger.debug("Found already %s in %s", validator_path, job.working_dir)
         validator_path = job.working_dir + validator_fname
         # Re-scan for list of student files
         job.student_files = os.listdir(job.working_dir)

@@ -152,7 +152,7 @@ def check_config(config):
         return False
     # Check directory specification
     targetdir = config.get("Execution", "directory")
-    if platform.system() is not "Windows" and not targetdir.startswith("/"):
+    if platform.system() != "Windows" and not targetdir.startswith("/"):
         logger.error(
             "Please use absolute paths, starting with a /, in your Execution-directory setting.")
         return False
