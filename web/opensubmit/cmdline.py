@@ -178,8 +178,8 @@ def check_path(file_path):
     if not www_uid or not www_gid:
         print("WARNING: Skipping permission change of {0}, www-data does not exist on this system.".format(directory))
     else:
-        print("Setting owner of {0} to web server".format(directory))
-        os.chown(directory, www_uid, www_gid)
+        # print("Setting owner of {0} to web server".format(directory))
+        # os.chown(directory, www_uid, www_gid)
         os.chmod(directory, 0o777)  # rw-rw---
 
 
@@ -198,8 +198,8 @@ def check_file(filepath):
     if not www_uid or not www_gid:
         print("WARNING: Skipping permission change of {0}, www-data does not exist on this system.".format(filepath))
     else:
-        print("Setting owner of {0} to web server".format(filepath))
-        os.chown(filepath, www_uid, www_gid)
+        # print("Setting owner of {0} to web server".format(filepath))
+        # os.chown(filepath, www_uid, www_gid)
         os.chmod(filepath, 0o777)  # rw-rw---
 
 
